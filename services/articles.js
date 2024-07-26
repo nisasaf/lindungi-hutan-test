@@ -1,6 +1,8 @@
 export default async function fetchArticles() {
   try {
-    const response = await fetch('https://newsapi.org/v2/everything?q=nature&apiKey=bdfa333c13ac49d09e6f4311fc85a485');
+    const config = useRuntimeConfig().public
+
+    const response = await fetch(`https://newsapi.org/v2/everything?q=nature&apiKey=${config.apiKey}`);
     const data = await response.json();
 
     if (!data.articles) {

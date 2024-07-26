@@ -23,5 +23,11 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: ["@nuxt/image"]
+  modules: ["@nuxt/image"],
+
+  runtimeConfig: {
+    public: {
+      apiKey: process.env.NUXT_ENV_API_KEY || 'bdfa333c13ac49d09e6f4311fc85a485',
+    },
+  }
 })
