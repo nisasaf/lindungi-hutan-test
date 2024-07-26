@@ -1,18 +1,17 @@
 export default async function fetchArticles() {
   try {
-    const config = useRuntimeConfig().public
+    const response = await $fetch('/api/news');
+    if (response.error) {
+      console.error('Error fetching articles:', response.error);
+      return [];
+    }
 
-    const response = await fetch(`https://newsapi.org/v2/everything?q=nature&apiKey=${config.apiKey}`);
-    const data = await response.json();
-
-    if (!data.articles) {
+    if (!response.articles) {
       console.error('No articles found');
       return [];
     }
 
-    const filteredArticles = data.articles.filter(article => {
-      return article.title !== '[Removed]';
-    });
+    const filteredArticles = response.articles.filter(article => article.title !== '[Removed]');
 
     return filteredArticles.map(article => ({
       author: article.author,
